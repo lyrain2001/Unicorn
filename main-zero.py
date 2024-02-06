@@ -1,4 +1,3 @@
-
 from transformers import BertTokenizer, RobertaTokenizer, AutoTokenizer, DebertaTokenizer, XLNetTokenizer, DistilBertTokenizer
 import torch
 
@@ -115,7 +114,7 @@ def main():
     if args.model == 'mpnet':
         tokenizer = AutoTokenizer.from_pretrained('all-mpnet-base-v2')
     if args.model == 'deberta_base':
-        tokenizer = DebertaTokenizer.from_pretrained('deberta-base')
+        tokenizer = DebertaTokenizer.from_pretrained('microsoft/deberta-base')
     if args.model == 'deberta_large':
         tokenizer = DebertaTokenizer.from_pretrained('deberta-large')
     if args.model == 'xlnet':
@@ -166,36 +165,36 @@ def main():
         test_sets = []
         valid_sets = []
         limit = 40000
-        for key,p in dataformat.entity_alignment_data.items():
-            if p[0] == "train":
-                train_sets.append(get_data(p[1]+"train-large.json",num=limit))
-                valid_sets.append(get_data(p[1]+"valid-large.json",num=limit))
-                train_metrics.append(p[2])
-        for key,p in dataformat.string_matching_data.items():
-            if p[0] == "train":
-                train_sets.append(get_data(p[1]+"train-large.json",num=limit))
-                valid_sets.append(get_data(p[1]+"valid-large.json",num=limit))
-                train_metrics.append(p[2])        
-        for key,p in dataformat.new_deepmatcher_data.items():
-            if p[0] == "train":
-                train_sets.append(get_data(p[1]+"train.json",num=limit))
-                valid_sets.append(get_data(p[1]+"valid.json",num=limit))
-                train_metrics.append(p[2])                
-        for key,p in dataformat.new_schema_matching_data.items():
-            if p[0] == "train":
-                train_sets.append(get_data(p[1]+"train.json",num=limit))
-                valid_sets.append(get_data(p[1]+"valid.json",num=limit))
-                train_metrics.append(p[2])
+        # for key,p in dataformat.entity_alignment_data.items():
+        #     if p[0] == "train":
+        #         train_sets.append(get_data(p[1]+"train-large.json",num=limit))
+        #         valid_sets.append(get_data(p[1]+"valid-large.json",num=limit))
+        #         train_metrics.append(p[2])
+        # for key,p in dataformat.string_matching_data.items():
+        #     if p[0] == "train":
+        #         train_sets.append(get_data(p[1]+"train-large.json",num=limit))
+        #         valid_sets.append(get_data(p[1]+"valid-large.json",num=limit))
+        #         train_metrics.append(p[2])        
+        # for key,p in dataformat.new_deepmatcher_data.items():
+        #     if p[0] == "train":
+        #         train_sets.append(get_data(p[1]+"train.json",num=limit))
+        #         valid_sets.append(get_data(p[1]+"valid.json",num=limit))
+        #         train_metrics.append(p[2])                
+        # for key,p in dataformat.new_schema_matching_data.items():
+        #     if p[0] == "train":
+        #         train_sets.append(get_data(p[1]+"train.json",num=limit))
+        #         valid_sets.append(get_data(p[1]+"valid.json",num=limit))
+        #         train_metrics.append(p[2])
         for key,p in dataformat.column_type_data.items():
             if p[0] == "train":
                 train_sets.append(get_data(p[1]+"train.json",num=limit))
                 valid_sets.append(get_data(p[1]+"valid.json",num=limit))
                 train_metrics.append(p[2])
-        for key,p in dataformat.entity_linking_data.items():
-            if p[0] == "train":
-                train_sets.append(get_data(p[1]+"train.json",num=limit))
-                valid_sets.append(get_data(p[1]+"valid.json",num=limit))
-                train_metrics.append(p[2])
+        # for key,p in dataformat.entity_linking_data.items():
+        #     if p[0] == "train":
+        #         train_sets.append(get_data(p[1]+"train.json",num=limit))
+        #         valid_sets.append(get_data(p[1]+"valid.json",num=limit))
+        #         train_metrics.append(p[2])
 
         train_data_loaders = []
         valid_data_loaders = []
@@ -231,30 +230,30 @@ def main():
             
     test_sets = []
     test_metrics = []
-    for key,p in dataformat.entity_alignment_data.items():
-        if p[0] == "test":
-            test_sets.append(get_data(p[1]+"test.json"))
-            test_metrics.append(p[2])
-    for key,p in dataformat.string_matching_data.items():
-        if p[0] == "test":
-            test_sets.append(get_data(p[1]+"test.json"))
-            test_metrics.append(p[2])
-    for key,p in dataformat.new_deepmatcher_data.items():
-        if p[0] == "test":
-            test_sets.append(get_data(p[1]+"test.json"))
-            test_metrics.append(p[2])
-    for key,p in dataformat.new_schema_matching_data.items():
-        if p[0] == "test":
-            test_sets.append(get_data(p[1]+"test.json"))
-            test_metrics.append(p[2])
+    # for key,p in dataformat.entity_alignment_data.items():
+    #     if p[0] == "test":
+    #         test_sets.append(get_data(p[1]+"test.json"))
+    #         test_metrics.append(p[2])
+    # for key,p in dataformat.string_matching_data.items():
+    #     if p[0] == "test":
+    #         test_sets.append(get_data(p[1]+"test.json"))
+    #         test_metrics.append(p[2])
+    # for key,p in dataformat.new_deepmatcher_data.items():
+    #     if p[0] == "test":
+    #         test_sets.append(get_data(p[1]+"test.json"))
+    #         test_metrics.append(p[2])
+    # for key,p in dataformat.new_schema_matching_data.items():
+    #     if p[0] == "test":
+    #         test_sets.append(get_data(p[1]+"test.json"))
+    #         test_metrics.append(p[2])
     for key,p in dataformat.column_type_data.items():
         if p[0] == "test":
             test_sets.append(get_data(p[1]+"test.json"))
             test_metrics.append(p[2])
-    for key,p in dataformat.entity_linking_data.items():
-        if p[0] == "test":
-            test_sets.append(get_data(p[1]+"test.json"))
-            test_metrics.append(p[2])
+    # for key,p in dataformat.entity_linking_data.items():
+    #     if p[0] == "test":
+    #         test_sets.append(get_data(p[1]+"test.json"))
+    #         test_metrics.append(p[2])
 
     test_data_loaders = []
     if args.model in ['bert','deberta_base','deberta_large','distilbert','mpnet']:

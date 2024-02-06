@@ -56,8 +56,12 @@ def evaluate_moe(encoder, moelayer, classifier, data_loader, args=None, index=-1
                     confidences[exm_id[i].item()] = abs(preds[i][0].item()-preds[i][1].item())
 
         loss += criterion(preds, labels).item()
+        # print(preds)
+        
+        # highest probability as prediction
         pred_cls = preds.data.max(1)[1]
 
+        # accuracy
         acc += pred_cls.eq(labels.data).cpu().sum().item()
         for i in range(len(labels)):
             if labels[i] == 1:
@@ -105,6 +109,7 @@ def evaluate_moe(encoder, moelayer, classifier, data_loader, args=None, index=-1
     acc /= len(data_loader.dataset)
     print("Avg Loss = %.4f, Avg Accuracy = %.4f" % (loss, acc))
     print("====================================================")
+    print("====================================================")
     if flag == "get_prob":
         return probility
     if all == 1:
@@ -151,9 +156,10 @@ def evaluate_wo_moe(encoder, classifier, data_loader, args=None, flag=None, writ
                     confidences[exm_id[i].item()] = abs(preds[i][0].item()-preds[i][1].item())
 
         loss += criterion(preds, labels).item()
-        pred_cls = preds.data.max(1)[1]
 
+        pred_cls = preds.data.max(1)[1]
         acc += pred_cls.eq(labels.data).cpu().sum().item()
+        
         for i in range(len(labels)):
             if labels[i] == 1:
                 p += 1
